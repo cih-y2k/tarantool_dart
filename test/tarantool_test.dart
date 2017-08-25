@@ -1,5 +1,6 @@
+@Skip("should be run manually")
+
 import 'package:tarantool/tarantool.dart';
-@TestOn("vm")
 import 'package:test/test.dart';
 
 const Matcher isTarantoolError = const _TarantoolError();

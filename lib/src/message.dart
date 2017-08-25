@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:msgpack/msgpack.dart';
 
@@ -42,5 +43,16 @@ class TarantoolMessage {
       {@required int spaceId, @required List tuple, @required int sync}) {
     final body = {UserKey.space_id: spaceId, UserKey.tuple: tuple};
     return new TarantoolMessage(UserCommand.insert, sync, body);
+  }
+
+  @override
+  bool operator ==(other) {
+    if (other is! TarantoolMessage) {
+      return false;
+    }
+    final eq = const ListEquality(const IdentityEquality());
+    return sync == other.sync &&
+        eq.equals(header, other.header) &&
+        eq.equals(body, other.body);
   }
 }

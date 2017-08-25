@@ -20,6 +20,7 @@ class TarantoolConnection {
   final _streamController = new StreamController<Response>.broadcast();
 
   Future<String> connect() async {
+    print("host = $host, port = $port");
     _socket = await Socket.connect(host, port);
     final stream = _socket.asBroadcastStream();
 
